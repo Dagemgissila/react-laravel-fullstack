@@ -9,6 +9,7 @@ use App\Models\User;
 use http\Env\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class AuthController extends Controller
 {
@@ -44,7 +45,8 @@ class AuthController extends Controller
     public function logout(Request $request)
     {
         /** @var \App\Models\User $user */
-        $user = $request->user();
+        $user = Auth::user();
+        Log::info('user'. $user);
         $user->currentAccessToken()->delete();
         return response('', 204);
     }
